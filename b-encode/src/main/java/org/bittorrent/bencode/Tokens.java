@@ -129,6 +129,9 @@ final class Tokens implements AutoCloseable, Closeable, Iterator<Token>, Iterabl
 		char c = read();
 
 		while (!TokenType.DELIMER.has(c)) {
+			if (!Character.isDigit(c)) {
+				throw new BEncodeRuntimeException("Invalid string format: " + b + c);
+			}
 			b.append(c);
 			c = read();
 		}
